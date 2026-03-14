@@ -6,9 +6,9 @@ typedef int ElemType;
 typedef struct
 {
 	ElemType data[MAXSIZE];
-	int top;   //µ±ÏÂ±íÊ¹ÓÃ
+	int top;   //å½“ä¸‹è¡¨ä½¿ç”¨
 }Stack;
-//³õÊ¼»¯
+//åˆå§‹åŒ–
 void initStack(Stack* s)
 {
 	s->top = -1;
@@ -17,9 +17,9 @@ void initStack(Stack* s)
 //typedef struct
 //{
 //	ElemType* data;
-//	int top;   //µ±ÏÂ±íÊ¹ÓÃ
+//	int top;   //å½“ä¸‹è¡¨ä½¿ç”¨
 //}Stack;
-//Stack* initStack2()//¶¯Ì¬³õÊ¼»¯
+//Stack* initStack2()//åŠ¨æ€åˆå§‹åŒ–
 //{
 //	Stack* s = (Stack*)malloc(sizeof(Stack));
 //	s->data = (ElemType*)malloc(sizeof(ElemType) * MAXSIZE); data[1]=*(data+1)
@@ -45,7 +45,7 @@ int isEmpty(Stack* s)
 {
 	if (s->top == -1)
 	{
-		printf("¿ÕµÄ\n");
+		printf("ç©ºçš„\n");
 		return 1;
 	}
 	else
@@ -59,7 +59,7 @@ int push(Stack* s, ElemType e)
 {
 	if (s->top >= MAXSIZE - 1)
 	{
-		printf("ÂúÁË\n");
+		printf("æ»¡äº†\n");
 		return 0;
 	}
 	s->top++;
@@ -71,7 +71,7 @@ ElemType pop(Stack* s, ElemType* e)
 {
 	if (s->top == -1)
 	{
-		printf("¿ÕµÄ\n");
+		printf("ç©ºçš„\n");
 		return 1;
 	}
 	*e = s->data[s->top];
@@ -83,7 +83,7 @@ int getTop(Stack* s, ElemType* e)
 {
 	if (s->top == -1)
 	{
-		printf("¿ÕµÄ\n");
+		printf("ç©ºçš„\n");
 		return 1;
 	}
 	*e = s->data[s->top];
@@ -91,17 +91,17 @@ int getTop(Stack* s, ElemType* e)
 	return 1;
 }
 
-//int main()
-//{
-//	Stack s;
-//	initStack(&s);
-//	push(&s, 10);
-//	push(&s, 20);
-//	push(&s, 30);
-//	ElemType e;
-//	pop(&s, &e);
-//	printf("%d\n", e);
-//	getTop(&s, &e);
-//	printf("%d\n", e);
-//	return 0;
-//}
+int main()
+{
+	Stack s;
+	initStack(&s);
+	push(&s, 10);
+	push(&s, 20);
+	push(&s, 30);
+	ElemType e;
+	pop(&s, &e);
+	printf("%d\n", e);
+	getTop(&s, &e);
+	printf("%d\n", e);
+	return 0;
+}
