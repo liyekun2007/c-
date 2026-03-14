@@ -73,13 +73,13 @@ int dequeue(Queue* Q,ElemType* e)
 		return 0;
 	}
 	*e = Q->data[Q->front];
-	Q->front++;
+	Q->front = (Q->front + 1) % MAXSIZE;
 	return 1;
-}
+} 
 //入队
 int equeue(Queue* Q, ElemType e)
 {
-	if (Q->rear >= MAXSIZE)
+	if ((Q->rear+1)%MAXSIZE==Q->front)
 	{
 		if (!queueFull(Q))
 		{
@@ -89,7 +89,7 @@ int equeue(Queue* Q, ElemType e)
 	}
 
 	Q->data[Q->rear] = e;
-	Q->rear++;
+	Q->rear = (Q->rear + 1) % MAXSIZE;
 	return 1;
 }
 
