@@ -5,22 +5,25 @@
 typedef int ElemType;
 typedef struct
 {
-	ElemType data[MAXSIZE];
+	ElemType* data;
 	int front;
 	int rear;
 }Queue;
 
-void initQueue(Queue* Q)
+Queue*  initQueue()
 {
-	Q->front = 0;
-	Q->rear= 0;
+	Queue* q = (Queue*)malloc(sizeof(Queue));
+	q->data = (ElemType*)malloc(sizeof(ElemType)*100);
+	q->front = 0;
+	q->rear = 0;
+	return q;
 }
 
 int isEmpty(Queue* Q)
 {
 	if (Q->front == Q->rear)
 	{
-		printf("空的\n");
+		printf("绌虹殑\n");
 		return 1;
 	}
 	else
@@ -37,7 +40,7 @@ int queueFull(Queue* Q)
 		for (int i = Q->front; i < Q->rear; i++)
 		{
 			Q->data[i - step] = Q->data[i];
-			
+
 		}
 		Q->front = 0;
 		Q->rear = Q->rear - step;
@@ -45,7 +48,7 @@ int queueFull(Queue* Q)
 	}
 	else
 	{
-		printf("真的满了\n");
+		printf("鐪熺殑婊′簡\n");
 		return 0;
 	}
 
@@ -55,36 +58,36 @@ int getHead(Queue* Q, ElemType* e)
 {
 	if (Q->front == Q->rear)
 	{
-		printf("空的\n");
+		printf("绌虹殑\n");
 		return 0;
 	}
 	*e = Q->data[Q->front];
 	return 1;
 }
-//出队
-ElemType dequeue(Queue* Q)
+//鍑洪槦
+int dequeue(Queue* Q,ElemType* e)
 {
 	if (Q->front == Q->rear)
 	{
-		printf("空的\n");
+		printf("绌虹殑\n");
 		return 0;
 	}
-	ElemType e = Q->data[Q->front];
+	*e = Q->data[Q->front];
 	Q->front++;
-	return e;
+	return 1;
 }
-//入队
+//鍏ラ槦
 int equeue(Queue* Q, ElemType e)
 {
 	if (Q->rear >= MAXSIZE)
 	{
 		if (!queueFull(Q))
 		{
-			printf("满了\n");
+			printf("婊′簡\n");
 			return 0;
 		}
 	}
-	
+
 	Q->data[Q->rear] = e;
 	Q->rear++;
 	return 1;
@@ -92,34 +95,17 @@ int equeue(Queue* Q, ElemType e)
 
 int main()
 {
-	Queue q;
-	initQueue(&q);
-	equeue(&q, 10);
-	equeue(&q, 20);
-	equeue(&q, 30);
-	equeue(&q, 40);
-	printf("%d\n", dequeue(&q));
-	printf("%d\n", dequeue(&q));
-	return 0;
+	Queue* q = initQueue();
+	equeue(q, 10);
+	equeue(q, 20);
+	equeue(q, 30);
+	equeue(q, 40);
+	ElemType e;
+	dequeue(q,&e);
+	printf("%d\n", e);
+	getHead(q, &e);
+	printf("%d\n", e);
+
 }
 
 
-//动态分配内存
-//#define MAXSIZE 100
-//
-//typedef int ElemType;
-//typedef struct
-//{
-//	ElemType* data;
-//	int front;
-//	int rear;
-//}Queue;
-//
-//Queue* initQueue()
-//{
-//	Queue* q = (Queue*)malloc(sizeof(Queue));
-//	q->data = (ElemType*)malloc(sizeof(ElemType)*MAXSIZE);
-//	q->front = 0;
-//	q->rear = 0;
-//	return q;
-//}
